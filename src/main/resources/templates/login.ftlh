@@ -3,7 +3,6 @@
 
 <@c.page>
 ${message?ifExists}
-<b>Login page</b>
 <@l.login "/login" false />
 
 </@c.page>
