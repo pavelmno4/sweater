@@ -12,14 +12,26 @@
 <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
     Add new message
 </a>
-<div class="collapse" id="collapseExample">
+<div class="collapse <#if message??>show</#if>" id="collapseExample">
     <div class="form-group mt-3">
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <input type="text" class="form-control" name="text" placeholder="Введите сообщение" />
+                <input type="text" class="form-control ${(textError??)?string('is-invalid', '')}"
+                       value="<#if message??>${message.text}</#if>" name="text" placeholder="Введите сообщение" />
+                <#if textError??>
+                <div class="invalid-feedback">
+                    ${textError}
+                </div>
+                </#if>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="tag" placeholder="Тег" />
+                <input type="text" class="form-control"
+                       value="<#if message??>${message.tag}</#if>" name="tag" placeholder="Тег" />
+                <#if tagError??>
+                <div class="invalid-feedback">
+                    ${tagError}
+                </div>
+                </#if>
             </div>
             <div class="form-group">
                 <div class="custom-file">
@@ -29,7 +41,7 @@
             </div>
             <input type="hidden" class="form-control" name="_csrf" value="${_csrf.token}" />
             <div class="form-group">
-                <button type="submit" claa="btn-primary ml-2" >Add</button>
+                <button type="submit" class="btn btn-primary ml-2" >Add</button>
             </div>
         </form>
     </div>
